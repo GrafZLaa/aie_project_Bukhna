@@ -1,0 +1,50 @@
+{
+  "experiment_set": "passport-cif control-set evaluation",
+  "control_set": "samples/control_samples.json",
+  "total_pdfs": 6,
+  "total_field_checks": 20,
+  "metric": "field-level accuracy (matched / total non-empty expected values)",
+  "runs": [
+    {
+      "name": "baseline",
+      "description": "OCR (Tesseract) + regex/rules, без LLM",
+      "endpoint": "GET /api/evaluate/default?fast=1",
+      "config": {
+        "allow_llm": false,
+        "scan_release_date": false,
+        "ENABLE_LLM": "0"
+      },
+      "accuracy_pct": 100.0,
+      "matched_checks": 20,
+      "total_checks": 20,
+      "elapsed_sec": 26.01,
+      "llm_invocations": 0,
+      "detailed_results": "eval_baseline.json"
+    },
+    {
+      "name": "improved",
+      "description": "OCR + regex/rules + опциональный LLM-доскан (Ollama llama3.2-vision)",
+      "endpoint": "GET /api/evaluate/default?fast=0",
+      "config": {
+        "allow_llm": true,
+        "scan_release_date": true,
+        "ENABLE_LLM": "1",
+        "OLLAMA_MODEL": "llama3.2-vision:latest"
+      },
+      "accuracy_pct": 100.0,
+      "matched_checks": 20,
+      "total_checks": 20,
+      "elapsed_sec": 32.2,
+      "llm_invocations": 0,
+      "llm_skip_reasons": {
+        "OCR+rules confidence is already high": 3,
+        "likely non-passport/service input": 3
+      },
+      "detailed_results": "eval_improved.json"
+    }
+  ],
+  "decision": {
+    "final_model": "hybrid (baseline + conditional LLM doscan)",
+    "rationale": "На контрольной выборке baseline даёт 100% accuracy. LLM-этап в improved не активировался ни разу: 3 файла отсёк quality_score (правила уверены), 3 — _should_skip_llm_for_file (не паспорта). Гибрид (то, что реализовано в _extract_document_payload) держит то же качество быстрее на ~6 секунд и без зависимости от Ollama в моменте."
+  }
+}

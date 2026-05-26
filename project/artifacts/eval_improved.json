@@ -1,0 +1,144 @@
+{
+  "run_mode": "full",
+  "mode": {
+    "allow_llm": true,
+    "scan_release_date": true
+  },
+  "elapsed_sec": 32.2,
+  "accuracy_pct": 100.0,
+  "error_rate_pct": 0.0,
+  "matched_checks": 20,
+  "total_checks": 20,
+  "total_samples": 6,
+  "cache": {
+    "enabled": true,
+    "hits": 0,
+    "misses": 6
+  },
+  "per_field": {
+    "document_type":    {"matched": 6, "total": 6, "accuracy_pct": 100.0},
+    "kod_dokumenta":    {"matched": 4, "total": 4, "accuracy_pct": 100.0},
+    "naimenovanie":     {"matched": 4, "total": 4, "accuracy_pct": 100.0},
+    "proizvoditel":     {"matched": 3, "total": 3, "accuracy_pct": 100.0},
+    "data_vypuska":     {"matched": 1, "total": 1, "accuracy_pct": 100.0},
+    "kod_zakaza":       {"matched": 1, "total": 1, "accuracy_pct": 100.0},
+    "zavodskie_nomera": {"matched": 1, "total": 1, "accuracy_pct": 100.0}
+  },
+  "samples": [
+    {
+      "index": 1,
+      "filename": "Приложение 1 к задаче 1 Паспорт без заводского номера.pdf",
+      "checks": 4,
+      "matched": 4,
+      "accuracy_pct": 100.0,
+      "cached": false,
+      "mismatches": [],
+      "meta": {
+        "provider": "ollama",
+        "model": "llama3.2-vision:latest",
+        "ocr_enabled": true,
+        "llm_used": false,
+        "llm_error": "LLM skipped: OCR+rules confidence is already high",
+        "images_sent_to_llm": 0,
+        "pages_processed": 1,
+        "scan_release_date": true
+      }
+    },
+    {
+      "index": 2,
+      "filename": "Приложение 2 к задаче 1 Паспорт с одним заводским номером.pdf",
+      "checks": 6,
+      "matched": 6,
+      "accuracy_pct": 100.0,
+      "cached": false,
+      "mismatches": [],
+      "meta": {
+        "provider": "ollama",
+        "model": "llama3.2-vision:latest",
+        "ocr_enabled": true,
+        "llm_used": false,
+        "llm_error": "LLM skipped: OCR+rules confidence is already high",
+        "images_sent_to_llm": 0,
+        "pages_processed": 2,
+        "scan_release_date": true
+      }
+    },
+    {
+      "index": 3,
+      "filename": "Приложение 3 к задаче 1 Групповой паспорт TECON TCC 8L 1.pdf",
+      "checks": 5,
+      "matched": 5,
+      "accuracy_pct": 100.0,
+      "cached": false,
+      "mismatches": [],
+      "meta": {
+        "provider": "ollama",
+        "model": "llama3.2-vision:latest",
+        "ocr_enabled": true,
+        "llm_used": false,
+        "llm_error": "LLM skipped: OCR+rules confidence is already high",
+        "images_sent_to_llm": 0,
+        "pages_processed": 4,
+        "scan_release_date": true
+      }
+    },
+    {
+      "index": 4,
+      "filename": "Приложение 4 к задаче 1 Разбор паспорта.pdf",
+      "checks": 3,
+      "matched": 3,
+      "accuracy_pct": 100.0,
+      "cached": false,
+      "mismatches": [],
+      "meta": {
+        "provider": "ollama",
+        "model": "llama3.2-vision:latest",
+        "ocr_enabled": true,
+        "llm_used": false,
+        "llm_error": "LLM skipped: likely non-passport/service input",
+        "images_sent_to_llm": 0,
+        "pages_processed": 1,
+        "scan_release_date": true
+      }
+    },
+    {
+      "index": 5,
+      "filename": "Приложение 5 к задаче 1 Разбор паспорта.docx.pdf",
+      "checks": 1,
+      "matched": 1,
+      "accuracy_pct": 100.0,
+      "cached": false,
+      "mismatches": [],
+      "meta": {
+        "provider": "ollama",
+        "model": "llama3.2-vision:latest",
+        "ocr_enabled": true,
+        "llm_used": false,
+        "llm_error": "LLM skipped: likely non-passport/service input",
+        "images_sent_to_llm": 0,
+        "pages_processed": 1,
+        "scan_release_date": true
+      }
+    },
+    {
+      "index": 6,
+      "filename": "Приложене 6 к задаче 1 Экранная форма исходной таблицы для запослнения паспортными данными.pdf",
+      "checks": 1,
+      "matched": 1,
+      "accuracy_pct": 100.0,
+      "cached": false,
+      "mismatches": [],
+      "meta": {
+        "provider": "ollama",
+        "model": "llama3.2-vision:latest",
+        "ocr_enabled": true,
+        "llm_used": false,
+        "llm_error": "LLM skipped: likely non-passport/service input",
+        "images_sent_to_llm": 0,
+        "pages_processed": 1,
+        "scan_release_date": true
+      }
+    }
+  ],
+  "source_file": "/app/samples/control_samples.json"
+}

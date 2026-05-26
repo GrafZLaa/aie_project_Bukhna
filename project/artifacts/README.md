@@ -1,22 +1,29 @@
 # project/artifacts/
 
-Папка для сохранённых артефактов: моделей, отчётов прогонов, экспортов.
+Сохранённые артефакты прогонов: метрики, журнал экспериментов, графики, выгрузки.
 
-## Что сюда складывается
+## Что сейчас в папке
 
-В этом проекте **не обучаются собственные веса** — используются готовые
-компоненты:
+| Файл | Что это |
+|------|---------|
+| `experiments_log.json` | Сводный журнал контрольных прогонов: baseline vs improved, accuracy, время, причина выбора финальной модели. |
+| `eval_baseline.json`   | Полный JSON-ответ `GET /api/evaluate/default?fast=1` — режим baseline (OCR + правила, без LLM). |
+| `eval_improved.json`   | Полный JSON-ответ `GET /api/evaluate/default?fast=0` — режим improved (LLM доступна, full scan). |
 
-- **Tesseract** — pretrained OCR-движок (системная зависимость);
-- **Ollama / `llama3.2-vision`** — pretrained мультимодальная LLM, скачивается
-  через `ollama pull` в Docker-volume `ollama_data` (см. `infra/docker-compose.yml`).
+## Замечание о моделях
 
-Поэтому «весов модели» в классическом смысле для коммита нет. Сюда можно
-складывать:
+В этом проекте **не обучаются собственные веса** — используются готовые компоненты:
 
-- Excel-отчёты, выгруженные через `/api/export/excel` (`Registry.xlsx`).
-- JSON-выгрузки 1С через `/api/export/1c_json`.
-- Дампы метрик из `/api/evaluate/default` и из `notebooks/02_baselines.ipynb`.
-- Скриншоты UI и логи прогонов для приложений к отчёту.
+- **Tesseract** — pretrained OCR (системная зависимость в Docker-образе);
+- **Ollama / `llama3.2-vision`** — pretrained мультимодальная LLM, скачивается через `ollama pull` в Docker-volume `ollama_data`.
 
-Содержимое не коммитим (см. `.gitignore`), кроме этого README и `.gitkeep`.
+Поэтому файлов вида `*.cbm`/`*.pt`/`*.onnx` тут нет. Артефакты — это **результаты прогонов** и **выгрузки**.
+
+## Куда ещё имеет смысл сохранять артефакты
+
+- Excel-выгрузка реестра через `POST /api/export/excel` → можно положить как `registry_export.xlsx` после защиты.
+- JSON-выгрузка для 1С через `POST /api/export/1c_json` → как `registry_1c.json`.
+- Скриншот UI после успешной обработки PDF → как `ui_screenshot.png`.
+- Графики `accuracy_per_field.png` и `runtime_comparison.png` — генерируются скриптом (см. следующие коммиты).
+
+Содержимое папки не критично для запуска сервиса; это материалы для отчёта и защиты.
