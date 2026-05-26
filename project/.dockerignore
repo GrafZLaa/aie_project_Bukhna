@@ -1,0 +1,20 @@
+﻿.git
+.gitignore
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+.pytest_cache
+.mypy_cache
+.DS_Store
+Thumbs.db
+Registry.xlsx
+# приложения/  — оставляем в образе: они нужны для /api/evaluate/default
+data/registry_state.json
+samples/control_samples.local.json

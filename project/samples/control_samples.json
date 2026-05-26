@@ -1,0 +1,65 @@
+{
+  "fields": [
+    "document_type",
+    "kod_dokumenta",
+    "naimenovanie",
+    "kod_zakaza",
+    "zavodskie_nomera",
+    "data_vypuska",
+    "proizvoditel"
+  ],
+  "samples": [
+    {
+      "filename": "Приложение 1 к задаче 1 Паспорт без заводского номера.pdf",
+      "expected": {
+        "document_type": "single_passport",
+        "kod_dokumenta": "ГЖИК.434434.032 РЭ",
+        "naimenovanie": "Розетка OptiDin РА10/16-502-Д-УХЛ4",
+        "proizvoditel": "АО «КЭАЗ»"
+      }
+    },
+    {
+      "filename": "Приложение 2 к задаче 1 Паспорт с одним заводским номером.pdf",
+      "expected": {
+        "document_type": "single_passport",
+        "kod_dokumenta": "TREI.421457.001 ПС",
+        "naimenovanie": "Мастер-модуль М1201Е",
+        "kod_zakaza": "M1201E-0",
+        "zavodskie_nomera": [
+          "G4M0821"
+        ],
+        "proizvoditel": "АО «ТРЭИ»"
+      }
+    },
+    {
+      "filename": "Приложение 3 к задаче 1 Групповой паспорт TECON TCC 8L 1.pdf",
+      "expected": {
+        "document_type": "group_passport",
+        "kod_dokumenta": "БНРД.434400.046 ПС",
+        "naimenovanie": "КОНТРОЛЛЕР МНОГОФУНКЦИОНАЛЬНЫЙ МФК1500; МОДУЛЬ КЛЕММНЫХ СОЕДИНЕНИЙ TCC 8L",
+        "data_vypuska": "10.07.2024",
+        "proizvoditel": "АО «ТеконГруп»"
+      }
+    },
+    {
+      "filename": "Приложение 4 к задаче 1 Разбор паспорта.pdf",
+      "expected": {
+        "document_type": "cabinet_list",
+        "kod_dokumenta": "БНРД.426436.052 ПС",
+        "naimenovanie": "Шкаф общего назначения №10 САУ ГПА (G4-32Y31-JP-CA-1014)"
+      }
+    },
+    {
+      "filename": "Приложение 5 к задаче 1 Разбор паспорта.docx.pdf",
+      "expected": {
+        "document_type": "unknown"
+      }
+    },
+    {
+      "filename": "Приложене 6 к задаче 1 Экранная форма исходной таблицы для запослнения паспортными данными.pdf",
+      "expected": {
+        "document_type": "unknown"
+      }
+    }
+  ]
+}

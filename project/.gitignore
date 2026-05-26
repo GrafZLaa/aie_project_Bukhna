@@ -1,0 +1,37 @@
+# Python cache / bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+
+# Tooling cache
+.pytest_cache/
+.mypy_cache/
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Local runtime artifacts
+Registry.xlsx
+*.xlsx
+_pdf_audit_report.json
+_task1_text.txt
+data/registry_state.json
+data/feedback_log.jsonl
+samples/control_samples.local.json
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Local datasets / sample inputs
+*.pdf
+control_samples.example.json

@@ -1,0 +1,60 @@
+# Декларативная конфигурация пайплайна.
+#
+# В рантайме приложение читает все эти параметры из переменных окружения
+# (см. .env.example в корне project/). Этот YAML — единая «карта» значений
+# по умолчанию: его можно использовать как референс для деплоя или
+# скрипта, который выставит соответствующие переменные окружения.
+#
+# Реальные значения берутся в порядке: .env -> переменные окружения ->
+# значения по умолчанию, зашитые в app/app.py.
+
+service:
+  host: "0.0.0.0"
+  port: 5000
+  debug: false
+
+ocr:
+  language: "rus+eng"
+  psm_modes: [3, 6, 11]
+  workers: 4
+  if_embedded_chars: 120          # ниже какого порога embedded-текста запускать OCR
+  max_variants: 2                 # сколько вариантов предобработки на страницу
+  quality_shortcircuit: 320       # ранний выход из multi-pass, если качество уже хорошее
+  tesseract_timeout_sec: 8
+  date_tesseract_timeout_sec: 3
+  release_scan_budget_sec: 5
+
+pdf:
+  render_scale: 2.0               # масштаб рендера PDF в PNG для extraction
+  preview_render_scale: 2.2       # для предпросмотра в UI
+
+llm:
+  enabled: true                   # ENABLE_LLM
+  provider: "ollama"
+  base_url: "http://localhost:11434"
+  primary_model: "llama3.2-vision"
+  candidate_models:
+    - "llama3.2-vision"
+    - "moondream"
+    - "llama3.2"
+  failover_tries: 1
+  max_total_sec: 90
+  request_timeout_sec: 55
+  connect_timeout_sec: 5
+  primary_max_images: 1
+  max_images: 2
+  text_limit: 12000
+  retry_text_limit: 5000
+  fallback_text_limit: 2800
+
+registry:
+  state_file: "data/registry_state.json"
+  feedback_file: "data/feedback_log.jsonl"
+  max_records: 2000
+  base64_payload_max: 12000000
+  max_images_per_record: 1000
+
+evaluation:
+  control_samples_file: "samples/control_samples.json"
+  fast_default: true              # быстрый режим (без тяжёлого доскана даты) по умолчанию
+  use_cache_default: true         # кэшировать результаты extraction между прогонами
