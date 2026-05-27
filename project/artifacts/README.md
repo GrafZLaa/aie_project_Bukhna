@@ -6,9 +6,21 @@
 
 | Файл | Что это |
 |------|---------|
-| `experiments_log.json` | Сводный журнал контрольных прогонов: baseline vs improved, accuracy, время, причина выбора финальной модели. |
-| `eval_baseline.json`   | Полный JSON-ответ `GET /api/evaluate/default?fast=1` — режим baseline (OCR + правила, без LLM). |
-| `eval_improved.json`   | Полный JSON-ответ `GET /api/evaluate/default?fast=0` — режим improved (LLM доступна, full scan). |
+| `experiments_log.json`        | Сводный журнал контрольных прогонов: baseline vs improved, accuracy, время, причина выбора финальной модели. |
+| `eval_baseline.json`          | Полный JSON-ответ `GET /api/evaluate/default?fast=1` — режим baseline (OCR + правила, без LLM). |
+| `eval_improved.json`          | Полный JSON-ответ `GET /api/evaluate/default?fast=0` — режим improved (LLM доступна, full scan). |
+| `plot_results.py`             | Скрипт генерации графиков из двух JSON выше. |
+| `accuracy_per_field.png`      | Bar-chart точности по полям, baseline vs improved (обе 100 %). |
+| `runtime_comparison.png`      | Сравнение времени прогона baseline vs improved (26.0 с vs 32.2 с). |
+
+## Как перегенерировать графики
+
+```bash
+cd project
+python artifacts/plot_results.py
+```
+
+Скрипт прочитает `eval_baseline.json` и `eval_improved.json` и пересоздаст обе PNG.
 
 ## Замечание о моделях
 
