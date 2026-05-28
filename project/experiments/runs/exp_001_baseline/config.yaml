@@ -1,0 +1,30 @@
+# Запуск №1 — Baseline: OCR (Tesseract) + regex/rules, без LLM.
+
+name: baseline
+description: |
+  Чистый OCR + правила без LLM-доскан. Самый быстрый и
+  предсказуемый режим, используется как точка отсчёта.
+
+endpoint: GET /api/evaluate/default?fast=1
+
+env:
+  ENABLE_LLM: "0"
+
+mode:
+  allow_llm: false
+  scan_release_date: false
+
+ocr:
+  engine: tesseract
+  language: rus+eng
+  psm_modes: [3, 6, 11]
+  workers: 4
+
+dataset:
+  source: samples/control_samples.json
+  total_pdfs: 6
+  total_field_checks: 20
+
+metric:
+  name: field_level_accuracy
+  definition: matched / total non-empty expected values, агрегировано по всем PDF

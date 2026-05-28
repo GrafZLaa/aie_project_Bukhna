@@ -1,0 +1,24 @@
+{
+  "run_name": "exp_002_improved",
+  "accuracy_pct": 100.0,
+  "matched_checks": 20,
+  "total_checks": 20,
+  "total_samples": 6,
+  "elapsed_sec": 32.2,
+  "llm_invocations": 0,
+  "llm_skip_reasons": {
+    "OCR+rules confidence is already high": 3,
+    "likely non-passport/service input": 3
+  },
+  "per_field_accuracy_pct": {
+    "document_type":    100.0,
+    "kod_dokumenta":    100.0,
+    "naimenovanie":     100.0,
+    "proizvoditel":     100.0,
+    "data_vypuska":     100.0,
+    "kod_zakaza":       100.0,
+    "zavodskie_nomera": 100.0
+  },
+  "full_response_artifact": "../../../artifacts/eval_improved.json",
+  "notes": "Несмотря на доступную LLM, она не была вызвана ни на одном документе: 3 файла отсёк quality_score (baseline уверен), 3 — _should_skip_llm_for_file (служебные документы, не паспорта). Доп. 6 сек по сравнению с baseline — это scan_release_date=true (доскан даты выпуска по штампам), не LLM."
+}

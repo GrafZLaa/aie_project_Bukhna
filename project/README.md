@@ -1,5 +1,7 @@
 # Итоговый проект по курсу «Инженерия Искусственного Интеллекта»
 
+[![tests](https://github.com/GrafZLaa/aie_project_Bukhna/actions/workflows/tests.yml/badge.svg)](https://github.com/GrafZLaa/aie_project_Bukhna/actions/workflows/tests.yml)
+
 В этой папке находится итоговый мини-проект по курсу.  
 Проект должен демонстрировать применение методов и инструментов инженерии ИИ: работу с данными, модели, пайплайны, сервис, эксперименты и (по возможности) воспроизводимость.
 

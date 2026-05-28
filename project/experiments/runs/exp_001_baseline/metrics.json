@@ -1,0 +1,20 @@
+{
+  "run_name": "exp_001_baseline",
+  "accuracy_pct": 100.0,
+  "matched_checks": 20,
+  "total_checks": 20,
+  "total_samples": 6,
+  "elapsed_sec": 26.01,
+  "llm_invocations": 0,
+  "per_field_accuracy_pct": {
+    "document_type":    100.0,
+    "kod_dokumenta":    100.0,
+    "naimenovanie":     100.0,
+    "proizvoditel":     100.0,
+    "data_vypuska":     100.0,
+    "kod_zakaza":       100.0,
+    "zavodskie_nomera": 100.0
+  },
+  "full_response_artifact": "../../../artifacts/eval_baseline.json",
+  "notes": "Baseline даёт 100% на текущей контрольной выборке. На более широком корпусе с шумными сканами цифра неизбежно просядет, и это станет точкой включения LLM-этапа (см. exp_002_improved)."
+}

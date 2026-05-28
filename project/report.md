@@ -181,7 +181,11 @@ LLM сюда добавлена не «потому что модно», а по
 | 1 | **Baseline**    | LLM выключена, fast-режим          | **20 / 20**        | **100 %** | 26.0 с |
 | 2 | **Improved**    | LLM доступна, full-режим           | **20 / 20**        | **100 %** | 32.2 с |
 
-Сырые JSON-замеры — [`artifacts/eval_baseline.json`](./artifacts/eval_baseline.json) и [`artifacts/eval_improved.json`](./artifacts/eval_improved.json); сводный журнал — [`artifacts/experiments_log.json`](./artifacts/experiments_log.json). Графики ниже строятся из этих же JSON скриптом [`artifacts/plot_results.py`](./artifacts/plot_results.py) и интерактивной версией в [`notebooks/02_baselines.ipynb`](./notebooks/02_baselines.ipynb).
+Запуски оформлены как папки в [`experiments/runs/`](./experiments/runs/):
+- [`experiments/runs/exp_001_baseline/`](./experiments/runs/exp_001_baseline/) — `config.yaml` + `metrics.json`,
+- [`experiments/runs/exp_002_improved/`](./experiments/runs/exp_002_improved/) — то же.
+
+Полные JSON-ответы со всеми samples — в [`artifacts/eval_baseline.json`](./artifacts/eval_baseline.json) и [`artifacts/eval_improved.json`](./artifacts/eval_improved.json). Сводный журнал — [`artifacts/experiments_log.json`](./artifacts/experiments_log.json). Графики ниже строятся из этих JSON скриптом [`artifacts/plot_results.py`](./artifacts/plot_results.py); интерактивная версия — в [`notebooks/02_baselines.ipynb`](./notebooks/02_baselines.ipynb).
 
 ![Точность по полям, baseline vs improved](./artifacts/accuracy_per_field.png)
 

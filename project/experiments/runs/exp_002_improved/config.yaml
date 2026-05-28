@@ -1,0 +1,41 @@
+# Запуск №2 — Improved: OCR + правила + опциональный LLM-доскан.
+
+name: improved
+description: |
+  Поверх baseline добавляется LLM-этап (Ollama llama3.2-vision)
+  как доскан для документов, у которых baseline даёт низкий
+  quality_score. Включается селективно через эвристику
+  _has_strong_heuristic_result и _should_skip_llm_for_file.
+
+endpoint: GET /api/evaluate/default?fast=0
+
+env:
+  ENABLE_LLM: "1"
+  OLLAMA_BASE_URL: http://ollama:11434
+  OLLAMA_MODEL: llama3.2-vision:latest
+
+mode:
+  allow_llm: true
+  scan_release_date: true
+
+ocr:
+  engine: tesseract
+  language: rus+eng
+  psm_modes: [3, 6, 11]
+  workers: 4
+
+llm:
+  provider: ollama
+  model: llama3.2-vision:latest
+  max_images: 4
+  request_timeout_sec: 55
+  max_total_sec: 90
+
+dataset:
+  source: samples/control_samples.json
+  total_pdfs: 6
+  total_field_checks: 20
+
+metric:
+  name: field_level_accuracy
+  definition: matched / total non-empty expected values, агрегировано по всем PDF
