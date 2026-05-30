@@ -1,40 +1,49 @@
 # Самопроверка проекта (self-checklist)
 
-Проект: **ПАСПОРТ.ЦИФ** — извлечение данных из PDF паспортов оборудования.
+Отметьте, что реализовано в вашем проекте.  
+Этот чеклист помогает и вам, и преподавателю быстро понять, на каком уровне готовности находится проект.
 
-| #  | Критерий                                                                                | Да/Нет | Где смотреть                                                                                                       |
-|----|------------------------------------------------------------------------------------------|--------|---------------------------------------------------------------------------------------------------------------------|
-| 1  | Сервис запускается по инструкциям из `README.md` и работает                              | ✅     | [`README.md`](./README.md) §4, [`scripts/start.bat`](./scripts/start.bat), [`scripts/start.sh`](./scripts/start.sh) |
-| 2  | Endpoint `/predict` использует **реальную модель**, а не заглушку                        | ✅     | [`app/app.py`](./app/app.py) `predict()` → `extract()` → `_extract_document_payload` (OCR+правила+LLM)             |
-| 3  | Есть EDA и хотя бы один эксперимент с метриками                                          | ✅     | [`notebooks/01_eda.ipynb`](./notebooks/01_eda.ipynb) (анализ корпуса, графики), [`notebooks/02_baselines.ipynb`](./notebooks/02_baselines.ipynb), [`report.md`](./report.md) §3, §5 |
-| 4  | Есть baseline и улучшенная модель, есть **сравнение по метрикам**                        | ✅     | baseline (OCR+правила) vs improved (+ LLM) в [`notebooks/02_baselines.ipynb`](./notebooks/02_baselines.ipynb) и [`report.md`](./report.md) §5. Сырые JSON-замеры: [`artifacts/eval_baseline.json`](./artifacts/eval_baseline.json), [`artifacts/eval_improved.json`](./artifacts/eval_improved.json); сводный журнал — [`artifacts/experiments_log.json`](./artifacts/experiments_log.json); графики — [`artifacts/accuracy_per_field.png`](./artifacts/accuracy_per_field.png), [`artifacts/runtime_comparison.png`](./artifacts/runtime_comparison.png) |
-| 5  | Код не свален в один ноутбук: есть внятная структура в `src/`                            | ✅     | Чистые leaf-функции физически вынесены: [`src/rules/normalize.py`](./src/rules/normalize.py), [`src/rules/dates.py`](./src/rules/dates.py), [`src/rules/_constants.py`](./src/rules/_constants.py), [`src/eval/compare.py`](./src/eval/compare.py). Остальные слои ([`src/ocr`](./src/ocr/), [`src/llm`](./src/llm/), [`src/data`](./src/data/), [`src/service`](./src/service/)) реэкспортируют функционал из [`app/app.py`](./app/app.py) — оставшийся монолит коротко описан в [`report.md`](./report.md) §8 |
-| 6  | Есть Dockerfile **или** понятный сценарий развёртывания без Docker                       | ✅     | [`infra/Dockerfile`](./infra/Dockerfile), [`infra/docker-compose.yml`](./infra/docker-compose.yml), [`scripts/start.sh`](./scripts/start.sh); локальный вариант — [`README.md`](./README.md) §4.2 |
-| 7  | Есть `.env.example` и **нет** в репозитории реальных секретов/паролей                    | ✅     | [`.env.example`](./.env.example), [`.gitignore`](./.gitignore) исключает `.env`. Внешних API-ключей нет — Ollama локальная |
-| 8  | Реализованы логи/наблюдаемость (хотя бы консольные логи + `/health`)                     | ✅     | `logging` в [`app/app.py`](./app/app.py), endpoint `GET /health`, `GET /api/meta` с диагностикой OCR/LLM, поле `_meta` в каждом ответе extract |
-| 9  | В `report.md` **обоснован выбор финальной модели** по результатам экспериментов          | ✅     | [`report.md`](./report.md) §5 «Выбор финальной модели» — гибрид baseline + LLM-доскан по эвристике                  |
-| 10 | `README.md` и `report.md` позволяют понять сценарий демонстрации                         | ✅     | [`README.md`](./README.md) §7, [`report.md`](./report.md) §9                                                       |
+В столбце «Да/Нет (студент)» поставьте `✅` или `❌`.  
+В столбце «Где смотреть / комментарий» укажите файл(ы), где реализован соответствующий пункт.
 
-**Самооценка: 10/10 ✅.**
+> Важно: чеклист – это **самооценка**. Преподаватель может не согласиться с вашими отметками и скорректировать оценку.
 
-## Связь с оценкой (ориентир)
+---
 
-- **5–8 баллов → 4** (хороший, рабочий проект).
-- **9–10 баллов → 5** (сильный, хорошо проработанный проект).
+## Таблица самопроверки
 
-Окончательное решение — за преподавателем.
+| #  | Критерий                                                                 | Да/Нет (студент) | Где смотреть / комментарий                          |
+|----|---------------------------------------------------------------------------|------------------|-----------------------------------------------------|
+| 1  | Сервис запускается по инструкциям из `project/README.md` и работает      |        ✅        | `README.md` §4, `scripts/start.bat`, `infra/docker-compose.yml` |
+| 2  | Endpoint `/predict` использует **реальную модель**, а не заглушку        |        ✅        | `app/app.py` — `predict()` → `extract()` → `_extract_document_payload`: OCR + правила + LLM |
+| 3  | Есть EDA и хотя бы один эксперимент с метриками                          |        ✅        | `notebooks/01_eda.ipynb`, `notebooks/02_baselines.ipynb`, `report.md` §3, §5 |
+| 4  | Есть baseline и улучшенная модель, есть **сравнение по метрикам**        |        ✅        | `notebooks/02_baselines.ipynb`, `report.md` §5. JSON-замеры — `artifacts/eval_baseline.json`, `eval_improved.json`, графики — `accuracy_per_field.png`, `runtime_comparison.png`, запуски — `experiments/runs/exp_001_baseline/`, `exp_002_improved/` |
+| 5  | Код не свален в один ноутбук: есть внятная структура в `src/`            |        ✅        | `src/data/`, `src/ocr/`, `src/rules/`, `src/llm/`, `src/service/`, `src/eval/`. Чистые функции вынесены в `rules/normalize.py`, `rules/dates.py`, `rules/_constants.py`, `eval/compare.py` |
+| 6  | Есть Dockerfile **или** понятный сценарий развёртывания без Docker       |        ✅        | `infra/Dockerfile`, `infra/docker-compose.yml`, `scripts/start.bat/sh`; локально без Docker — в `README.md` §4.2 |
+| 7  | Есть `.env.example` и **нет** в репозитории реальных секретов/паролей    |        ✅        | `.env.example`, `.gitignore` исключает `.env`. Облачных API нет — Ollama локальная |
+| 8  | Реализованы логи/наблюдаемость (хотя бы консольные логи + `/health`)     |        ✅        | `logging` в `app/app.py`, `GET /health`, `GET /api/meta`, поле `_meta` в каждом ответе extract |
+| 9  | В `report.md` **обоснован выбор финальной модели** по результатам экспериментов |  ✅        | `report.md` §5 «Выбор финальной модели» — гибрид baseline + LLM-доскан по эвристике |
+| 10 | `project/README.md` и `report.md` позволяют понять сценарий демонстрации |        ✅        | `README.md` §6, `report.md` §9   |
 
-## Дополнительные плюсы проекта (поверх чеклиста)
+---
 
-- Сервис целиком автономный (никаких облачных API), что критично для
-  промышленного применения (паспорта могут содержать чувствительные
-  внутренние коды).
-- В каждом ответе extract есть `_evidence` — мини-«объяснимость»: для
-  каждого извлечённого поля видно, на какой странице и в каком фрагменте
-  оно найдено.
-- Контрольная выборка `samples/control_samples.json` оформлена так, что
-  можно расширять её самим (формат документирован в [`README.md`](./README.md)
-  и в самом файле через примеры).
-- Экспорт ориентирован на два сценария интеграции: Excel (для оператора)
-  и `/api/export/1c_json` (для системного коннектора в 1С с валидацией).
-- Все метрики хранятся как **артефакты в репозитории** ([`artifacts/eval_baseline.json`](./artifacts/eval_baseline.json), [`artifacts/eval_improved.json`](./artifacts/eval_improved.json), [`artifacts/experiments_log.json`](./artifacts/experiments_log.json)), графики генерируются скриптом [`artifacts/plot_results.py`](./artifacts/plot_results.py) — единый источник истины и для отчёта, и для ноутбука.
+## Подсчёт баллов и связь с оценкой
+
+За каждый критерий, по которому вы честно можете поставить `✅`, засчитывается **1 балл**.  
+Максимум – 10 баллов.
+
+Преподаватель использует суммарное количество баллов **после проверки** в качестве ориентира для выставления оценки:
+
+- Если проект **не проходит базовый минимум** (не запускается, отсутствует ключевой функционал, грубые нарушения, плагиат и т.п.) – оценка: **2** (проходной минимум не достигнут).
+- Если минимум пройден, то ориентировочно:
+  - **1-4 балла** → оценка **3** (проект принят, но на базовом уровне);
+  - **5-8 баллов** → оценка **4** (хороший, рабочий проект);
+  - **9-10 баллов** → оценка **5** (сильный, хорошо проработанный проект).
+
+Окончательное решение по оценке остаётся за преподавателем и может учитывать:
+
+- качество реализации внутри каждого пункта;
+- дополнительные сильные стороны проекта (нестандартные решения, дополнительные функции, аккуратная архитектура и т.п.);
+- соблюдение требований курса и дедлайнов.
+
+---
