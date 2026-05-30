@@ -1,41 +1,25 @@
-# project/artifacts/
+# artifacts/
 
-Сохранённые артефакты прогонов: метрики, журнал экспериментов, графики, выгрузки.
-
-## Что сейчас в папке
+Результаты прогонов и графики.
 
 | Файл | Что это |
-|------|---------|
-| `experiments_log.json`        | Сводный журнал контрольных прогонов: baseline vs improved, accuracy, время, причина выбора финальной модели. |
-| `eval_baseline.json`          | Полный JSON-ответ `GET /api/evaluate/default?fast=1` — режим baseline (OCR + правила, без LLM). |
-| `eval_improved.json`          | Полный JSON-ответ `GET /api/evaluate/default?fast=0` — режим improved (LLM доступна, full scan). |
-| `plot_results.py`             | Скрипт генерации графиков из двух JSON выше. |
-| `accuracy_per_field.png`      | Bar-chart точности по полям, baseline vs improved (обе 100 %). |
-| `runtime_comparison.png`      | Сравнение времени прогона baseline vs improved (26.0 с vs 32.2 с). |
+|---|---|
+| `experiments_log.json`     | сводный журнал прогонов baseline и improved (accuracy, время, выбор финальной модели) |
+| `eval_baseline.json`       | полный JSON-ответ `GET /api/evaluate/default?fast=1` — baseline |
+| `eval_improved.json`       | полный JSON-ответ `GET /api/evaluate/default?fast=0` — improved (LLM доступна) |
+| `plot_results.py`          | рисует графики из двух JSON выше |
+| `accuracy_per_field.png`   | точность по полям, baseline vs improved |
+| `runtime_comparison.png`   | время прогона, baseline vs improved |
 
-## Как перегенерировать графики
+## Как пересобрать графики
 
 ```bash
 cd project
 python artifacts/plot_results.py
 ```
 
-Скрипт прочитает `eval_baseline.json` и `eval_improved.json` и пересоздаст обе PNG.
+## Про модели
 
-## Замечание о моделях
+Свои веса не учил. Использую готовые: Tesseract (системная зависимость) и Ollama / `llama3.2-vision` (тянется через `ollama pull` в Docker-volume). Поэтому файлов вроде `*.pt` или `*.cbm` здесь нет — это результаты прогонов и выгрузки.
 
-В этом проекте **не обучаются собственные веса** — используются готовые компоненты:
-
-- **Tesseract** — pretrained OCR (системная зависимость в Docker-образе);
-- **Ollama / `llama3.2-vision`** — pretrained мультимодальная LLM, скачивается через `ollama pull` в Docker-volume `ollama_data`.
-
-Поэтому файлов вида `*.cbm`/`*.pt`/`*.onnx` тут нет. Артефакты — это **результаты прогонов** и **выгрузки**.
-
-## Куда ещё имеет смысл сохранять артефакты
-
-- Excel-выгрузка реестра через `POST /api/export/excel` → можно положить как `registry_export.xlsx` после защиты.
-- JSON-выгрузка для 1С через `POST /api/export/1c_json` → как `registry_1c.json`.
-- Скриншот UI после успешной обработки PDF → как `ui_screenshot.png`.
-- Графики `accuracy_per_field.png` и `runtime_comparison.png` — генерируются скриптом (см. следующие коммиты).
-
-Содержимое папки не критично для запуска сервиса; это материалы для отчёта и защиты.
+Сюда же можно сохранить Excel-выгрузку (`/api/export/excel`), 1С-JSON (`/api/export/1c_json`) или скриншоты UI после защиты.

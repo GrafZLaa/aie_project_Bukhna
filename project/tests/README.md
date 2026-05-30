@@ -1,18 +1,17 @@
-# project/tests/
+# tests/
 
-`pytest`-тесты. Запуск:
+Запуск:
 
 ```bash
 cd project
 pytest tests -v
 ```
 
-| Файл                                  | Что проверяет                                                                |
-|---------------------------------------|-------------------------------------------------------------------------------|
-| [`test_rules.py`](./test_rules.py)    | Чистые функции rules-слоя: нормализация серийников, кодов документа, нормативов, итоговая очистка payload. |
-| [`test_api.py`](./test_api.py)        | Flask smoke: `/health`, `/api/meta`, `/api/extract` (без файла → 400), `/predict` (алиас), отдача индексной страницы. |
-| [`test_eval.py`](./test_eval.py)      | Валидность контрольного набора `samples/control_samples.json` и поведение компаратора `compare_eval_value`. |
-| [`conftest.py`](./conftest.py)        | Добавляет корень `project/` в `sys.path`, чтобы `from src import ...` работало без установки пакета. |
+| Файл | Что проверяет |
+|---|---|
+| `test_rules.py` | чистые функции из rules — нормализация серийников, коды документов, нормативы, очистка payload |
+| `test_api.py`   | smoke Flask: `/health`, `/api/meta`, `/api/extract` без файла → 400, `/predict` (alias), отдача индексной страницы |
+| `test_eval.py`  | валидность `samples/control_samples.json` и поведение `compare_eval_value` |
+| `conftest.py`   | добавляет корень `project/` в `sys.path`, чтобы `from src import ...` работало |
 
-> Эти тесты не требуют ни Tesseract'а, ни Ollama — они проверяют только
-> синтаксис, импорты и логику чистых функций.
+Тесты не требуют ни Tesseract'а, ни Ollama — гоняются через Flask test-client и чистые функции.
